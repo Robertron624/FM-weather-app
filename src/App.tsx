@@ -1,6 +1,6 @@
 import WeatherCard from './components/WeatherCard'
 
-import './App.css'
+import '@/styles/App.scss'
 
 function App() {
 

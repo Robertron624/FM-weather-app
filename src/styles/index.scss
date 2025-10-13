@@ -1,0 +1,51 @@
+@use './fonts';
+@use './variables' as *;
+
+// 🌍 Reset básico
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: $font-primary;
+  color: $neutral-900;
+  background-color: $neutral-0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  color: $neutral-900;
+}
+
+h1,h2,h3,
+p {
+  color: $neutral-800;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+button {
+  color: inherit;
+  background-color: none;
+  padding: 0;
+}
+
+button:hover {
+  transition: .5s linear ease-in-out;
+}
