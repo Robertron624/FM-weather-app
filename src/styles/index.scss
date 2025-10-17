@@ -1,5 +1,6 @@
 @use './fonts';
 @use './variables' as *;
+@use './utilities' as *;
 
 // 🌍 Reset básico
 *,
@@ -38,6 +39,8 @@ a {
 
 ol, ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 button {
@@ -48,4 +51,10 @@ button {
 
 button:hover {
   transition: .5s linear ease-in-out;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
