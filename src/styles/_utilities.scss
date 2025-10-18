@@ -1,3 +1,11 @@
+.block {
+    display: block;
+}
+
+.inline {
+    display: inline;
+}
+
 .grid {
     display: grid;
 }
@@ -15,7 +23,7 @@
 }
 
 .flex-row {
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .items-center {
@@ -40,6 +48,10 @@
 
 .justify-end {
     justify-content: flex-end;
+}
+
+.justify-between {
+    justify-content: space-between;
 }
 
 .mx-auto {

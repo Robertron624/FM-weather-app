@@ -15,21 +15,15 @@ html,
 body {
   height: 100%;
   font-family: $font-primary;
-  color: $neutral-900;
-  background-color: $neutral-0;
+  color: $main-text-color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: $font-heading;
-  color: $neutral-900;
-}
-
 h1,h2,h3,
 p {
-  color: $neutral-800;
   margin: 0;
+  font-family: $font-heading;
 }
 
 a {
@@ -55,6 +49,5 @@ button:hover {
 
 img {
   display: block;
-  width: 100%;
   height: auto;
 }

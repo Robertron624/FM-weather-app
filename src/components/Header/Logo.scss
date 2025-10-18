@@ -1,1 +1,11 @@
-@use '@/styles/_variables.scss' as *
+@use '@/styles/_variables.scss' as *;
+
+.logo-container {
+    display: inline-flex;
+
+    img {
+        width: clamp(100px, 12vw, 150px);
+        object-fit: contain;
+        cursor: pointer;
+    }
+} 
