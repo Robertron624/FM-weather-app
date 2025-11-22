@@ -1,0 +1,87 @@
+@use '@/styles/_variables.scss' as *;
+
+.unit-select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: 1px solid $neutral-300;
+    color: $neutral-0;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease-in-out;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    // The last img is the dropdown icon, it needs to rotate when open with an animation
+    img:last-of-type{
+        transition: transform 0.3s ease;
+        &[data-open="true"] {
+          transform: rotate(180deg);
+        }
+    }
+
+  &__label {
+    font-size: 0.9rem;
+  }
+}}
+
+
+.unit-select-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  width: 200px;
+  background: $neutral-800;
+  border: 1px solid $neutral-700;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 0.6rem;
+  z-index: 10;
+}
+
+.unit-group {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid $neutral-700;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  h4 {
+    color: $neutral-300;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+}
+
+.unit-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $neutral-0;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.4rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $neutral-700;
+  }
+
+  svg {
+    color: $orange-500;
+  }
+}
