@@ -39,8 +39,10 @@ ol, ul {
 
 button {
   color: inherit;
-  background-color: none;
+  background-color: transparent;
   padding: 0;
+  border: none;
+  cursor: pointer;
 }
 
 button:hover {
@@ -50,4 +52,10 @@ button:hover {
 img {
   display: block;
   height: auto;
+}
+
+input {
+  font-family: inherit;
+  border: none;
+  background-color: transparent;
 }

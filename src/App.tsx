@@ -3,6 +3,7 @@ import Header from './components/Header/Header';
 import WeatherCard from './components/WeatherCard'
 
 import '@/styles/App.scss'
+import { SearchBar } from './components/Search/SearchBar';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <h1>
           {headingText}
         </h1>
+        <SearchBar />
       </main>
       <WeatherCard lat={lat} lon={lon} />
     </>

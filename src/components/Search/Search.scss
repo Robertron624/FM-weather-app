@@ -1,0 +1,49 @@
+@use '@/styles/_variables.scss' as *;
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-block: 2rem;
+
+    .search-bar-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
+        .search-icon {
+            position: absolute;
+            img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        input {
+            padding-left: 20px;
+            width: 100%;
+            padding-block: .65rem;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background-color: $neutral-600;
+            color: $neutral-200;
+            font-weight: 500;
+
+            &::placeholder {
+                color: $neutral-200;
+            }
+        }
+    }
+
+    button[type='submit'] {
+        background-color: $blue-500;
+        padding: .75rem 1rem;
+        border-radius: 8px;
+        color: $neutral-0;
+        font-weight: 500;
+    }
+}   
+
