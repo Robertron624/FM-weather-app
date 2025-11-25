@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { DEFAULT_LOCATION } from './utils/constants';
 import Header from './components/Header/Header';
 import WeatherCard from './components/WeatherCard'
 
@@ -7,8 +8,31 @@ import { SearchBar } from './components/Search/SearchBar';
 
 function App() {
 
-  const lat = 4.71;
-  const lon = -74.07
+  // Get lat and lon from browser
+
+  const [lat, setLat] = useState<number | null>(null);
+  const [lon, setLon] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLat(position.coords.latitude);
+          setLon(position.coords.longitude);
+        },
+        (err) => {
+          console.error(err.message);
+          setLat(DEFAULT_LOCATION.lat);
+          setLon(DEFAULT_LOCATION.lon);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by your browser.');
+      setLat(DEFAULT_LOCATION.lat);
+      setLon(DEFAULT_LOCATION.lon);
+    }
+  }, []);
+
 
   const [headingText] = useState('How\'s the sky looking today?');
 
@@ -21,7 +45,7 @@ function App() {
         </h1>
         <SearchBar />
       </main>
-      <WeatherCard lat={lat} lon={lon} />
+      {lat && lon && <WeatherCard lat={lat} lon={lon} />}
     </>
   )
 }

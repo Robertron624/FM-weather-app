@@ -1,3 +1,5 @@
+@use '@/styles/variables' as *;
+
 .block {
     display: block;
 }
@@ -64,4 +66,308 @@
 
 .padding-0 {
     padding: 0;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.font-italic {
+    font-style: italic;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.relative {
+    position: relative;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
+}
+
+.top {
+    top: 0;
+}
+
+.bottom {
+    bottom: 0;
+}
+
+.object-contain {
+    object-fit: contain;
+}
+
+.object-cover {
+    object-fit: cover;
+}
+
+.object-fill {
+    object-fit: fill;
+}
+
+.block {
+    display: block;
+}
+
+.inline {
+    display: inline;
+}
+
+// Paddings
+
+.padding-0 {
+    padding: 0;
+}
+
+.padding-1 {
+    padding: 1rem;
+}
+
+.padding-2 {
+    padding: 2rem;
+}
+
+.padding-3 {
+    padding: 3rem;
+}
+
+.padding-4 {
+    padding: 4rem;
+}
+
+.padding-5 {
+    padding: 5rem;
+}
+
+.padding-6 {
+    padding: 6rem;
+}
+
+.padding-7 {
+    padding: 7rem;
+}
+
+// Margins
+
+.margin-0 {
+    margin: 0;
+}
+
+.margin-1 {
+    margin: 1rem;
+}
+
+.margin-2 {
+    margin: 2rem;
+}
+
+.margin-3 {
+    margin: 3rem;
+}
+
+.margin-4 {
+    margin: 4rem;
+}
+
+.margin-5 {
+    margin: 5rem;
+}
+
+.margin-6 {
+    margin: 6rem;
+}
+
+.margin-7 {
+    margin: 7rem;
+}
+
+.margin-t-0 {
+    margin-top: 0;
+}
+
+.margin-t-1 {
+    margin-top: 1rem;
+}
+
+.margin-t-2 {
+    margin-top: 2rem;
+}
+
+.margin-t-3 {
+    margin-top: 3rem;
+}
+
+.margin-t-4 {
+    margin-top: 4rem;
+}
+
+.margin-t-5 {
+    margin-top: 5rem;
+}
+
+.margin-t-6 {
+    margin-top: 6rem;
+}
+
+.margin-t-7 {
+    margin-top: 7rem;
+}
+
+.mx-auto {
+    margin-inline: auto;
+}
+// Rounding
+
+.rounded-0 {
+    border-radius: 0;
+}
+
+.rounded-sm {
+    border-radius: 0.125rem;
+}
+
+.rounded-md {
+    border-radius: 0.375rem;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.rounded-xl {
+    border-radius: 0.75rem;
+}
+
+.rounded-2xl {
+    border-radius: 1rem;
+}
+
+.rounded-3xl {
+    border-radius: 1.5rem;
+}
+
+.rounded-full {
+    border-radius: 9999px;
+}
+
+// Colors
+
+.bg-blue-500 {
+    background-color: $blue-500;
+}
+
+.bg-blue-700 {
+    background-color: $blue-700;
+}
+
+.bg-orange-500 {
+    background-color: $orange-500;
+}
+
+.bg-neutral-900 {
+    background-color: $neutral-900;
+}
+
+.bg-neutral-800 {
+    background-color: $neutral-800;
+}
+
+.bg-neutral-700 {
+    background-color: $neutral-700;
+}
+
+.bg-neutral-600 {
+    background-color: $neutral-600;
+}
+
+.bg-neutral-300 {
+    background-color: $neutral-300;
+}
+
+.bg-neutral-200 {
+    background-color: $neutral-200;
+}
+
+.bg-neutral-0 {
+    background-color: $neutral-0;
+}
+
+
+// Shadows
+
+.shadow {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-sm {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.shadow-inner {
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.shadow-none {
+    box-shadow: none;
+}
+
+// Backgrounds
+
+.bg-contain {
+    background-size: contain;
+}
+
+.bg-no-repeat {
+    background-repeat: no-repeat;
+}
+
+.bg-center {
+    background-position: center;
+}
+
+.bg-cover {
+    background-size: cover;
+}
+
+// Mixins for media queries
+
+@mixin md {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (min-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media (min-width: 1280px) {
+        @content;
+    }
 }
