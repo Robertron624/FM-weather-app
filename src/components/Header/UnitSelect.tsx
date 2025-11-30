@@ -52,15 +52,31 @@ function getSwitchToText(system: "metric" |"imperial"):string{
 function UnitSelectMenu({}: UnitSelectMenuProps) {
   const { units, setUnits, currentSystem } = useUnits();
 
+  const handleSwitchSystem = () => {
+    if (currentSystem === 'metric') {
+      setUnits({
+        temperature: 'fahrenheit',
+        windSpeed: 'mph',
+        precipitation: 'inch'
+      })
+    } else {
+      setUnits({
+        temperature: 'celsius',
+        windSpeed: 'kmh',
+        precipitation: 'mm'
+      })
+    }
+  }
+
   const handleChange = (group: string, value: string) => {
     setUnits({ ...units, [group]: value });
   };
 
   return (
     <div className="unit-select-menu">
-      <h5>
+      <button className="unit-select-menu__switch-btn" onClick={handleSwitchSystem}>
         Switch to {getSwitchToText(currentSystem)}
-      </h5>
+      </button>
       {unitSelectGroups.map((group) => (
         <div key={group.key} className="unit-group">
           <h4>{group.title}</h4>

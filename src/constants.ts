@@ -28,7 +28,7 @@ export const unitSelectGroups = [
     key: "precipitation",
     options: [
       { label: "mm", value: "mm" },
-      { label: "in", value: "in" },
+      { label: "in", value: "inch" },
     ],
   },
 ] as const;

@@ -45,6 +45,11 @@
         border-radius: 8px;
         color: $neutral-0;
         font-weight: 500;
+        transition: background-color .4s ease-in-out;
+
+        &:hover {
+            background-color: $blue-700;
+        }
     }
 }   
 
