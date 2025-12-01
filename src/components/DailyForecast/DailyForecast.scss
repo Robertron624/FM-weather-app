@@ -1,0 +1,46 @@
+@use '@/styles/_variables.scss' as *;
+
+.daily-forecast {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    .forecast-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;                                                                                                                                        
+        padding: 1rem;
+        background-color: $neutral-700;
+        border-radius: .5rem;
+        outline: 1px solid $neutral-600;
+
+        .day {
+            color: $neutral-200;
+            font-weight: 500;
+            font-size: .875rem;
+        }
+
+        .weather-icon {
+            width: 3rem;
+            height: 3rem;
+            object-fit: contain;
+        }
+
+        .temps {
+            display: flex;
+            gap: .5rem;
+            font-size: 1rem;
+            font-weight: 500;
+
+            .max {
+                color: $neutral-200;
+            }
+
+            .min {
+                color: $neutral-300;
+            }
+        }
+    }
+}
