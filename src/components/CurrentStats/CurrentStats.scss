@@ -1,0 +1,33 @@
+@use '@/styles/_variables.scss' as *;
+
+.current-stats-grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    .grid-item
+    {
+        display: flex;
+        flex-direction: column;
+        gap: .35rem;
+        padding: 1rem;
+        background-color: $neutral-700;
+        border-radius: .5rem;
+
+        outline: 1px solid $neutral-600;
+
+        .name {
+            display: flex;
+            color: $neutral-200;
+            font-weight: 500;
+            font-size: .875rem;
+        }
+
+        .value-container {
+            display: flex;
+            gap: .45rem;
+            font-size: 1.5rem;
+        }
+    }
+}

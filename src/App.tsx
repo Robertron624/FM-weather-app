@@ -5,6 +5,7 @@ import WeatherCard from './components/WeatherCard'
 
 import '@/styles/App.scss'
 import { SearchBar } from './components/Search/SearchBar';
+import { CurrentStats } from './components/CurrentStats/CurrentStats';
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
         <SearchBar />
       </main>
       {lat && lon && <WeatherCard lat={lat} lon={lon} />}
+      {lat && lon && <CurrentStats lat={lat} lon={lon} />}
     </>
   )
 }

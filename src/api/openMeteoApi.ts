@@ -7,6 +7,10 @@ export interface WeatherData {
     temperature_2m: number
     weather_code: number
     is_day: number
+    apparent_temperature: number
+    relative_humidity_2m: number
+    wind_speed_10m: number
+    precipitation: number
   }
 }
 
@@ -15,7 +19,7 @@ export const getWeatherByCoords = async (lat: number, lon: number, unitSystem: '
     latitude: lat,
     longitude: lon,
     hourly: 'temperature_2m',
-    current: ['temperature_2m', 'weather_code', 'is_day'],
+    current: ['temperature_2m', 'weather_code', 'is_day', 'apparent_temperature', 'relative_humidity_2m', 'wind_speed_10m', 'precipitation'],
     temperature_unit: unitSystem === 'metric' ? 'celsius' : 'fahrenheit',
     wind_speed_unit: unitSystem === 'metric' ? 'kmh' : 'mph',
     precipitation_unit: unitSystem === 'metric' ? 'mm' : 'inch',
@@ -45,6 +49,10 @@ export const getWeatherByCoords = async (lat: number, lon: number, unitSystem: '
       temperature_2m: current.variables(0)!.value(),
       weather_code: current.variables(1)!.value(),
       is_day: current.variables(2)!.value(),
+      apparent_temperature: current.variables(3)!.value(),
+      relative_humidity_2m: current.variables(4)!.value(),
+      wind_speed_10m: current.variables(5)!.value(),
+      precipitation: current.variables(6)!.value(),
     }
   }
 

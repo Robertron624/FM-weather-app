@@ -1,9 +1,9 @@
-// 🧩 BRICOLAGE GROTESQUE — Bold (700)
+// 🧩 BRICOLAGE GROTESQUE — variable
 @font-face {
   font-family: 'Bricolage Grotesque';
-  src: url('/fonts/Bricolage_Grotesque/BricolageGrotesque-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
+  src: url('/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 400 700;
+  font-style: normal italic;
   font-display: swap;
 }
 

@@ -40,6 +40,6 @@ export default function WeatherCard({ lat, lon }: Props) {
           {temperature}°
         </div>
       </div>
-    </div>
+          </div>
   )
 }
