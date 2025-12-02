@@ -1,0 +1,103 @@
+@use '../../styles/variables' as *;
+
+.hourly-forecast {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    color: white;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        select {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            color: white;
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+
+            option {
+                background: #333;
+                color: white;
+            }
+        }
+    }
+
+    .hourly-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+
+        /* Scrollbar styling */
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .hourly-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            transition: background 0.2s;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .left {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+
+                .weather-icon {
+                    width: 40px;
+                    height: 40px;
+                    object-fit: contain;
+                }
+
+                .time {
+                    font-size: 1rem;
+                    font-weight: 500;
+                }
+            }
+
+            .temp {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+        }
+    }
+}

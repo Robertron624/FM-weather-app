@@ -3,6 +3,7 @@ import { fetchWeatherApi } from 'openmeteo'
 export interface WeatherData {
   time: Date[]
   temperature_2m: Float32Array
+  weather_code_hourly: Float32Array
   current: {
     temperature_2m: number
     weather_code: number
@@ -24,7 +25,7 @@ export const getWeatherByCoords = async (lat: number, lon: number, unitSystem: '
   const params = {
     latitude: lat,
     longitude: lon,
-    hourly: 'temperature_2m',
+    hourly: ['temperature_2m', 'weather_code'],
     current: ['temperature_2m', 'weather_code', 'is_day', 'apparent_temperature', 'relative_humidity_2m', 'wind_speed_10m', 'precipitation'],
     daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min'],
     temperature_unit: unitSystem === 'metric' ? 'celsius' : 'fahrenheit',
@@ -46,13 +47,16 @@ export const getWeatherByCoords = async (lat: number, lon: number, unitSystem: '
   if (!hourly || !current || !daily) throw new Error('No se encontraron datos completos.')
 
   const tempVar = hourly.variables(0)?.valuesArray()
-  if(!tempVar) throw new Error('No se encontró la variable de temperatura')
+  const weatherCodeVar = hourly.variables(1)?.valuesArray()
+  
+  if(!tempVar || !weatherCodeVar) throw new Error('No se encontró la variable de temperatura o código de clima')
 
   const weatherData: WeatherData = {
     time: [...Array((Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval())].map(
       (_, i) => new Date((Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) * 1000)
     ),
     temperature_2m: tempVar,
+    weather_code_hourly: weatherCodeVar,
     current: {
       temperature_2m: current.variables(0)!.value(),
       weather_code: current.variables(1)!.value(),

@@ -8,6 +8,8 @@ import { SearchBar } from './components/Search/SearchBar';
 import { CurrentStats } from './components/CurrentStats/CurrentStats';
 import { DailyForecast } from './components/DailyForecast/DailyForecast';
 
+import { HourlyForecast } from './components/HourlyForecast/HourlyForecast';
+
 function App() {
 
   // Get lat and lon from browser
@@ -50,6 +52,7 @@ function App() {
       {lat && lon && <WeatherCard lat={lat} lon={lon} />}
       {lat && lon && <CurrentStats lat={lat} lon={lon} />}
       {lat && lon && <DailyForecast lat={lat} lon={lon} />}
+      {lat && lon && <HourlyForecast lat={lat} lon={lon} />}
     </>
   )
 }
