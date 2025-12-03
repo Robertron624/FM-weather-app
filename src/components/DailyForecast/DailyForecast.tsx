@@ -32,9 +32,9 @@ export const DailyForecast = ({ lat, lon }: Props) => {
                     <img 
                         src={getWeatherIcon(daily.weather_code[index])} 
                         alt="Weather icon" 
-                        className="weather-icon"
+                        className="weather-icon mx-auto"
                     />
-                    <div className="temps">
+                    <div className="temps justify-between">
                         <span className="max">{Math.round(daily.temperature_2m_max[index])}°</span>
                         <span className="min">{Math.round(daily.temperature_2m_min[index])}°</span>
                     </div>

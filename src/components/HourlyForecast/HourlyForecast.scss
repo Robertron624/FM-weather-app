@@ -25,18 +25,32 @@
         }
 
         select {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: transparent;
+            background-image: url('/images/icon-dropdown.svg');
+            background-repeat: no-repeat;
+            background-position: right 0.8rem center;
+            background-size: 12px;
+            border: 1px solid $neutral-300;
             border-radius: 0.5rem;
-            padding: 0.5rem;
-            color: white;
+            padding: 0.4rem 1.5rem 0.4rem 0.8rem;
+            color: $neutral-0;
             font-family: inherit;
             cursor: pointer;
             outline: none;
-
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background 0.3s ease-in-out;
+            
             option {
-                background: #333;
-                color: white;
+                background: $neutral-800; /* Match UnitSelect menu background */
+                color: $neutral-0;
+            }
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.09); /* Match UnitSelect hover */
             }
         }
     }

@@ -2,6 +2,7 @@ import { useWeather } from '../../hooks/useWeather'
 import { useUnits } from '../../hooks/useUnits'
 import Loading from '../Loading'
 import './CurrentStats.scss'
+import { limitDecimalPlaces } from '@/utils/utilityFunctions'
 
 const gridItems = [
     {
@@ -46,7 +47,9 @@ function GridItem({
                     (title === "Feels Like" || title === "Humidity") ?
                         <p>{value}{unit}</p> :
                         <>
-                            <p>{value}</p>
+                            <p>{
+                                limitDecimalPlaces(Number(value), 4)
+                            }</p>
                             <p>{unit}</p>
                         </>
                 }
