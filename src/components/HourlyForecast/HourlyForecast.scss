@@ -1,7 +1,7 @@
 @use '../../styles/variables' as *;
 
 .hourly-forecast {
-    background: rgba(255, 255, 255, 0.2);
+    background-color: $neutral-800;
     backdrop-filter: blur(10px);
     border-radius: 1rem;
     padding: 1.5rem;
@@ -28,7 +28,7 @@
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-color: transparent;
+            background-color: $neutral-600;
             background-image: url('/images/icon-dropdown.svg');
             background-repeat: no-repeat;
             background-position: right 0.8rem center;

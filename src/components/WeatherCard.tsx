@@ -30,7 +30,7 @@ export default function WeatherCard({ lat, lon }: Props) {
         <p className="weather-card__date">{date}</p>
       </div>
       
-      <div className="weather-card__weather flex items-center justify-center">
+      <div className="weather-card__weather flex items-center justify-around">
         <img 
           src={weatherIcon} 
           alt="Weather icon" 
