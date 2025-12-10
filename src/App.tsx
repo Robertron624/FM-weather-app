@@ -40,6 +40,11 @@ function App() {
 
   const [headingText] = useState('How\'s the sky looking today?');
 
+  const handleLocationSelect = (lat: number, lon: number) => {
+    setLat(lat);
+    setLon(lon);
+  };
+
   return (
     <>
       <Header/>
@@ -47,7 +52,7 @@ function App() {
         <h1>
           {headingText}
         </h1>
-        <SearchBar />
+        <SearchBar onLocationSelect={handleLocationSelect} />
       </main>
       {lat && lon && <WeatherCard lat={lat} lon={lon} />}
       {lat && lon && <CurrentStats lat={lat} lon={lon} />}

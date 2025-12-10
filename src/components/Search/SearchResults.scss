@@ -1,0 +1,49 @@
+@use '@/styles/variables' as *;
+
+.search-results {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  background-color: $neutral-800;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  list-style: none;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid $neutral-600;
+  gap: 1rem;
+
+  &.loading {
+    padding: 1rem;
+    text-align: center;
+    color: $neutral-0;
+    font-weight: 500;
+  }
+
+  li {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: $neutral-700;
+    }
+
+    .city-name {
+      color: $neutral-0;
+      font-weight: 500;
+    }
+
+    .location-details {
+      color: $neutral-300;
+      font-size: 0.875rem;
+    }
+  }
+}

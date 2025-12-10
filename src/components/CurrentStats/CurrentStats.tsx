@@ -67,8 +67,6 @@ export function CurrentStats({ lat, lon }: Props) {
     const { currentSystem, units } = useUnits()
     const { data, isLoading, error } = useWeather(lat, lon, currentSystem)
 
-    console.log(data)
-
     if (isLoading) return <Loading />
     if (error) return <p>Error loading stats</p>
     if (!data) return null

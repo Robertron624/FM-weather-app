@@ -1,10 +1,15 @@
 @use '@/styles/_variables.scss' as *;
 
+.search-container-wrapper {
+    position: relative;
+    margin-block: 2rem;
+    z-index: 50;
+}
+
 .search-form {
     display: flex;
     flex-direction: column;
     gap: .5rem;
-    margin-block: 2rem;
 
     .search-bar-container {
         position: relative;
