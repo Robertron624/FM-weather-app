@@ -14,6 +14,7 @@ export function SearchBar({ onLocationSelect, onSearchError }: Props){
     const [results, setResults] = useState<LocationSearchResult[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showResults, setShowResults] = useState(false);
+    const [selectedIndex, setSelectedIndex] = useState(-1);
     const searchContainerRef = useRef<HTMLDivElement>(null);
 
     useOnClickOutside(searchContainerRef, () => setShowResults(false));
@@ -25,6 +26,7 @@ export function SearchBar({ onLocationSelect, onSearchError }: Props){
                 setShowResults(true);
                 const locations = await searchLocations(query);
                 setResults(locations);
+                setSelectedIndex(-1);
                 setIsLoading(false);
                 
                 if (locations.length === 0) {
@@ -42,10 +44,23 @@ export function SearchBar({ onLocationSelect, onSearchError }: Props){
         return () => clearTimeout(timer);
     }, [query, onSearchError]);
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (results.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            setSelectedIndex(prev => (prev < results.length - 1 ? prev + 1 : prev));
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            setSelectedIndex(prev => (prev > 0 ? prev - 1 : -1));
+        }
+    };
+
     function onSubmit(e: FormEvent<HTMLFormElement>){
         e.preventDefault();
         if (results.length > 0) {
-            handleSelect(results[0]);
+            const indexToSelect = selectedIndex >= 0 ? selectedIndex : 0;
+            handleSelect(results[indexToSelect]);
         }
         (document.activeElement as HTMLElement)?.blur();
     }
@@ -71,6 +86,7 @@ export function SearchBar({ onLocationSelect, onSearchError }: Props){
                         placeholder='Search for a place...'
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
+                        onKeyDown={handleKeyDown}
                         autoComplete="off"
                     />
                 </div>
@@ -82,7 +98,8 @@ export function SearchBar({ onLocationSelect, onSearchError }: Props){
                 <SearchResults 
                     results={results} 
                     isLoading={isLoading} 
-                    onSelect={handleSelect} 
+                    onSelect={handleSelect}
+                    selectedIndex={selectedIndex}
                 />
             )}
         </div>

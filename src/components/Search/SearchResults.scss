@@ -32,8 +32,13 @@
     gap: 0.25rem;
     transition: background-color 0.2s;
 
-    &:hover {
+    &:hover, &.selected {
       background-color: $neutral-700;
+    }
+
+    &.selected {
+      outline: 2px solid $blue-500;
+      outline-offset: -2px;
     }
 
     .city-name {
