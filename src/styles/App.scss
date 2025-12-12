@@ -19,3 +19,13 @@ main {
     font-family: $font-heading;
   }
 }
+
+.search-error {
+  margin-top: 4rem;
+  
+  p {
+    color: $neutral-200;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+}

@@ -39,10 +39,12 @@ function App() {
 
 
   const [headingText] = useState('How\'s the sky looking today?');
+  const [searchError, setSearchError] = useState(false);
 
   const handleLocationSelect = (lat: number, lon: number) => {
     setLat(lat);
     setLon(lon);
+    setSearchError(false);
   };
 
   return (
@@ -52,12 +54,20 @@ function App() {
         <h1>
           {headingText}
         </h1>
-        <SearchBar onLocationSelect={handleLocationSelect} />
+        <SearchBar onLocationSelect={handleLocationSelect} onSearchError={setSearchError} />
       </main>
-      {lat && lon && <WeatherCard lat={lat} lon={lon} />}
-      {lat && lon && <CurrentStats lat={lat} lon={lon} />}
-      {lat && lon && <DailyForecast lat={lat} lon={lon} />}
-      {lat && lon && <HourlyForecast lat={lat} lon={lon} />}
+      {searchError ? (
+        <div className="search-error">
+          <p>No search result found!</p>
+        </div>
+      ) : (
+        <>
+          {lat && lon && <WeatherCard lat={lat} lon={lon} />}
+          {lat && lon && <CurrentStats lat={lat} lon={lon} />}
+          {lat && lon && <DailyForecast lat={lat} lon={lon} />}
+          {lat && lon && <HourlyForecast lat={lat} lon={lon} />}
+        </>
+      )}
     </>
   )
 }

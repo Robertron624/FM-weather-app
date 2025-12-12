@@ -6,9 +6,10 @@ import './Search.scss';
 
 interface Props {
   onLocationSelect: (lat: number, lon: number) => void;
+  onSearchError: (hasError: boolean) => void;
 }
 
-export function SearchBar({ onLocationSelect }: Props){
+export function SearchBar({ onLocationSelect, onSearchError }: Props){
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<LocationSearchResult[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -25,14 +26,21 @@ export function SearchBar({ onLocationSelect }: Props){
                 const locations = await searchLocations(query);
                 setResults(locations);
                 setIsLoading(false);
+                
+                if (locations.length === 0) {
+                    onSearchError(true);
+                } else {
+                    onSearchError(false);
+                }
             } else {
                 setResults([]);
                 setShowResults(false);
+                onSearchError(false);
             }
         }, 500);
 
         return () => clearTimeout(timer);
-    }, [query]);
+    }, [query, onSearchError]);
 
     function onSubmit(e: FormEvent<HTMLFormElement>){
         e.preventDefault();
