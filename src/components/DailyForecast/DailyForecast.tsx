@@ -2,7 +2,7 @@ import { useWeather } from '@/hooks/useWeather'
 import { useUnits } from '@/hooks/useUnits'
 import { getWeatherIcon } from '@/utils/weatherUtils'
 import './DailyForecast.scss'
-import Loading from '../Loading'
+import { DailyForecastSkeleton } from '../Skeletons/DailyForecastSkeleton'
 
 interface Props {
     lat: number
@@ -13,7 +13,7 @@ export const DailyForecast = ({ lat, lon }: Props) => {
     const { currentSystem } = useUnits()
     const { data, isLoading, error } = useWeather(lat, lon, currentSystem)
 
-    if (isLoading) return <Loading />
+    if (isLoading) return <DailyForecastSkeleton />
     if (error) return <p>Error loading forecast</p>
     if (!data) return null
 

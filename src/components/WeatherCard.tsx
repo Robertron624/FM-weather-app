@@ -2,7 +2,7 @@ import { useWeather } from '../hooks/useWeather'
 import { useUnits } from '../hooks/useUnits'
 import { getWeatherIcon, formatDate } from '../utils/weatherUtils'
 import './WeatherCard.scss'
-import Loading from './Loading'
+import { WeatherCardSkeleton } from './Skeletons/WeatherCardSkeleton'
 
 interface Props {
   lat: number
@@ -13,7 +13,7 @@ export default function WeatherCard({ lat, lon }: Props) {
   const { currentSystem } = useUnits()
   const { data, isLoading, error } = useWeather(lat, lon, currentSystem)
 
-  if (isLoading) return <Loading />
+  if (isLoading) return <WeatherCardSkeleton />
   if (error) return <p>Error al cargar el clima 😕</p>
 
   const { location, current } = data!

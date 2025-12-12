@@ -3,6 +3,7 @@ import { useWeather } from '@/hooks/useWeather'
 import { useUnits } from '@/hooks/useUnits'
 import { getWeatherIcon } from '@/utils/weatherUtils'
 import './HourlyForecast.scss'
+import { HourlyForecastSkeleton } from '../Skeletons/HourlyForecastSkeleton'
 
 interface Props {
     lat: number
@@ -50,8 +51,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
 
     }, [data, dailyDates, selectedDateIndex])
 
-    if (isLoading) return null // Or a loading skeleton if preferred, but main loading is handled elsewhere usually
-    if (error || !data) return null
+    if (error) return <p>Error loading forecast</p>
 
     const formatTime = (date: Date) => {
         return new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: true }).format(date)
@@ -69,30 +69,39 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
                     id='hourly-select'
                     value={selectedDateIndex} 
                     onChange={(e) => setSelectedDateIndex(Number(e.target.value))}
+                    disabled={isLoading}
                 >
-                    {dailyDates.map((date, index) => (
-                        <option key={index} value={index}>
-                            {formatDate(date)}
-                        </option>
-                    ))}
+                    {isLoading ? (
+                        <option>Loading...</option>
+                    ) : (
+                        dailyDates.map((date, index) => (
+                            <option key={index} value={index}>
+                                {formatDate(date)}
+                            </option>
+                        ))
+                    )}
                 </select>
             </header>
 
-            <div className="hourly-list">
-                {hourlyData.map((item, index) => (
-                    <div key={index} className="hourly-item">
-                        <div className="left">
-                            <img 
-                                src={getWeatherIcon(item.weatherCode)} 
-                                alt="Weather icon" 
-                                className="weather-icon"
-                            />
-                            <span className="time">{formatTime(item.time)}</span>
+            {isLoading ? (
+                <HourlyForecastSkeleton />
+            ) : (
+                <div className="hourly-list">
+                    {hourlyData.map((item, index) => (
+                        <div key={index} className="hourly-item">
+                            <div className="left">
+                                <img 
+                                    src={getWeatherIcon(item.weatherCode)} 
+                                    alt="Weather icon" 
+                                    className="weather-icon"
+                                />
+                                <span className="time">{formatTime(item.time)}</span>
+                            </div>
+                            <span className="temp">{Math.round(item.temp)}°</span>
                         </div>
-                        <span className="temp">{Math.round(item.temp)}°</span>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </section>
     )
 }

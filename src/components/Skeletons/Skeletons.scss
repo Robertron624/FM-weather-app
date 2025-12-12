@@ -1,0 +1,104 @@
+@use '@/styles/variables' as *;
+
+// Keyframes for bouncing dots
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Keyframes for pulse effect (standard skeleton)
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.skeleton-pulse {
+  animation: pulse 1.5s infinite ease-in-out;
+  background-color: $neutral-600;
+  border-radius: 4px;
+}
+
+// Weather Card Skeleton
+.weather-card-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px; // Approximate height of WeatherCard
+  background-color: $neutral-800;
+  border-radius: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 1.5rem auto 0;
+
+  .dots-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background-color: $neutral-200;
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+
+      &:nth-child(1) {
+        animation-delay: -0.32s;
+      }
+      &:nth-child(2) {
+        animation-delay: -0.16s;
+      }
+    }
+  }
+
+  .loading-text {
+    color: $neutral-200;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+}
+
+// Daily Forecast Skeleton
+.daily-forecast-skeleton {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+  .skeleton-item {
+    height: 150px; // Approximate height
+    background-color: $neutral-800;
+    border-radius: 0.5rem;
+    border: 1px solid $neutral-600;
+    @extend .skeleton-pulse;
+  }
+}
+
+// Hourly Forecast Skeleton
+.hourly-forecast-skeleton {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+
+  .skeleton-item {
+    min-width: 80px;
+    height: 120px;
+    background-color: $neutral-700; // Slightly lighter to contrast with container
+    border-radius: 1rem;
+    @extend .skeleton-pulse;
+  }
+}

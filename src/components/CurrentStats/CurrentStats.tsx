@@ -1,6 +1,5 @@
 import { useWeather } from '../../hooks/useWeather'
 import { useUnits } from '../../hooks/useUnits'
-import Loading from '../Loading'
 import './CurrentStats.scss'
 import { limitDecimalPlaces } from '@/utils/utilityFunctions'
 
@@ -37,22 +36,23 @@ interface GridItemProps {
 function GridItem({
     title,
     value,
-    unit
-}: GridItemProps) {
+    unit,
+    isLoading
+}: GridItemProps & { isLoading?: boolean }) {
     return (
         <div className="grid-item">
             <p className='name'>{title}</p>
             <div className="value-container">
-                {
+                {isLoading ? (
+                    <p>__</p>
+                ) : (
                     (title === "Feels Like" || title === "Humidity") ?
                         <p>{value}{unit}</p> :
                         <>
-                            <p>{
-                                limitDecimalPlaces(Number(value), 4)
-                            }</p>
-                            <p>{unit}</p>
+                            <p>{value}</p>
+                            <p className='unit'>{unit}</p>
                         </>
-                }
+                )}
             </div>
         </div>
     )
@@ -63,46 +63,51 @@ interface Props {
     lon: number
 }
 
-export function CurrentStats({ lat, lon }: Props) {
-    const { currentSystem, units } = useUnits()
+export const CurrentStats = ({ lat, lon }: Props) => {
+    const { currentSystem } = useUnits()
     const { data, isLoading, error } = useWeather(lat, lon, currentSystem)
 
-    if (isLoading) return <Loading />
     if (error) return <p>Error loading stats</p>
-    if (!data) return null
 
-    const { current } = data
-
-    const getUnitLabel = (measure: string) => {
-        switch(measure) {
-            case 'apparentTemperature': return units.temperature === 'celsius' ? '°C' : '°F'
-            case 'humidity': return '%'
-            case 'windSpeed': return units.windSpeed === 'kmh' ? 'km/h' : 'mph'
-            case 'precipitation': return units.precipitation === 'mm' ? 'mm' : 'in'
-            default: return ''
-        }
-    }
-
-    const getValue = (measure: string) => {
-        switch(measure) {
-            case 'apparentTemperature': return Math.round(current.apparent_temperature).toString()
-            case 'humidity': return Math.round(current.relative_humidity_2m).toString()
-            case 'windSpeed': return Math.round(current.wind_speed_10m).toString()
-            case 'precipitation': return current.precipitation.toString()
-            default: return ''
-        }
-    }
+    const { current } = data || {}
 
     return (
         <div className="current-stats-grid">
-            {gridItems.map(item => (
-                <GridItem
-                    key={item.name}
-                    title={item.title}
-                    value={getValue(item.measure)}
-                    unit={getUnitLabel(item.measure)}
-                />
-            ))}
+            {gridItems.map((item) => {
+                let value = ""
+                let unit = ""
+
+                if (!isLoading && current) {
+                    switch (item.name) {
+                        case "feelsLike":
+                            value = Math.round(current.apparent_temperature).toString()
+                            unit = "°"
+                            break
+                        case "humidity":
+                            value = current.relative_humidity_2m.toString()
+                            unit = "%"
+                            break
+                        case "wind":
+                            value = Math.round(current.wind_speed_10m).toString()
+                            unit = currentSystem === 'metric' ? "km/h" : "mph"
+                            break
+                        case "precipitation":
+                            value = limitDecimalPlaces(current.precipitation, 2).toString()
+                            unit = currentSystem === 'metric' ? "mm" : "in"
+                            break
+                    }
+                }
+
+                return (
+                    <GridItem
+                        key={item.name}
+                        title={item.title}
+                        value={value}
+                        unit={unit}
+                        isLoading={isLoading}
+                    />
+                )
+            })}
         </div>
     )
 }
