@@ -44,6 +44,9 @@ export function SearchBar({ onLocationSelect, onSearchError }: Props){
 
     function onSubmit(e: FormEvent<HTMLFormElement>){
         e.preventDefault();
+        if (results.length > 0) {
+            handleSelect(results[0]);
+        }
         (document.activeElement as HTMLElement)?.blur();
     }
 
