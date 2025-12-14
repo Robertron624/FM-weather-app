@@ -45,6 +45,11 @@ export function SearchBar({ onLocationSelect, onSearchError }: Props){
     }, [query, onSearchError]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Escape') {
+            setShowResults(false);
+            return;
+        }
+
         if (results.length === 0) return;
 
         if (e.key === 'ArrowDown') {

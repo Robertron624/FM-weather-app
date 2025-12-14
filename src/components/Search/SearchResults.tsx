@@ -24,12 +24,10 @@ export const SearchResults = ({ results, isLoading, onSelect, selectedIndex }: P
         
         // Check if element is above the visible area
         if (offsetTop < scrollTop) {
-          console.log("The element is above the visible area of the list (needs to scroll up)")
           list.scrollTop = offsetTop;
         } 
         // Check if element is below the visible area
         else if (offsetTop + offsetHeight > scrollTop + clientHeight) {
-          console.log("The element is below the visible area of the list (needs to scroll down)")
           list.scrollTop = offsetTop + offsetHeight - clientHeight;
         }
       }
