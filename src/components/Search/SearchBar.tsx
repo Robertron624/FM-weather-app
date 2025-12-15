@@ -1,7 +1,7 @@
-import { FormEvent, useState, useRef, useEffect } from 'react';
-import { searchLocations } from '@/api/geocodingApi';
+import { FormEvent, useRef } from 'react';
 import { SearchResults } from './SearchResults';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
+import { useSearch } from '@/hooks/useSearch';
 import type { LocationSearchResult } from '@/types';
 import './Search.scss';
 
@@ -11,56 +11,21 @@ interface Props {
 }
 
 export function SearchBar({ onLocationSelect, onSearchError }: Props){
-    const [query, setQuery] = useState('');
-    const [results, setResults] = useState<LocationSearchResult[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [showResults, setShowResults] = useState(false);
-    const [selectedIndex, setSelectedIndex] = useState(-1);
+    const {
+        query,
+        setQuery,
+        results,
+        isLoading,
+        showResults,
+        setShowResults,
+        selectedIndex,
+        handleKeyDown,
+        resetSearch
+    } = useSearch({ onSearchError });
+    
     const searchContainerRef = useRef<HTMLDivElement>(null);
 
     useOnClickOutside(searchContainerRef, () => setShowResults(false));
-
-    useEffect(() => {
-        const timer = setTimeout(async () => {
-            if (query.length >= 2) {
-                setIsLoading(true);
-                setShowResults(true);
-                const locations = await searchLocations(query);
-                setResults(locations);
-                setSelectedIndex(-1);
-                setIsLoading(false);
-                
-                if (locations.length === 0) {
-                    onSearchError(true);
-                } else {
-                    onSearchError(false);
-                }
-            } else {
-                setResults([]);
-                setShowResults(false);
-                onSearchError(false);
-            }
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [query, onSearchError]);
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Escape') {
-            setShowResults(false);
-            return;
-        }
-
-        if (results.length === 0) return;
-
-        if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            setSelectedIndex(prev => (prev < results.length - 1 ? prev + 1 : prev));
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            setSelectedIndex(prev => (prev > 0 ? prev - 1 : -1));
-        }
-    };
 
     function onSubmit(e: FormEvent<HTMLFormElement>){
         e.preventDefault();
@@ -73,9 +38,7 @@ export function SearchBar({ onLocationSelect, onSearchError }: Props){
 
     const handleSelect = (location: LocationSearchResult) => {
         onLocationSelect(location.latitude, location.longitude);
-        setQuery('');
-        setShowResults(false);
-        setResults([]);
+        resetSearch();
     };
 
     return(
