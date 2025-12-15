@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { useWeather } from '@/hooks/useWeather'
 import { useUnits } from '@/hooks/useUnits'
+import { useOnClickOutside } from '@/hooks/useOnClickOutside'
 import { getWeatherIcon } from '@/utils/weatherUtils'
 import './HourlyForecast.scss'
 import { HourlyForecastSkeleton } from '../Skeletons/HourlyForecastSkeleton'
@@ -14,6 +15,10 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
     const { currentSystem } = useUnits()
     const { data, isLoading, error } = useWeather(lat, lon, currentSystem)
     const [selectedDateIndex, setSelectedDateIndex] = useState(0)
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+    const dropdownRef = useRef<HTMLDivElement>(null)
+
+    useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false))
 
     const dailyDates = useMemo(() => {
         if (!data) return []
@@ -65,22 +70,42 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
         <section className="hourly-forecast">
             <header>
                 <h2>Hourly forecast</h2>
-                <select
-                    id='hourly-select'
-                    value={selectedDateIndex} 
-                    onChange={(e) => setSelectedDateIndex(Number(e.target.value))}
-                    disabled={isLoading}
-                >
-                    {isLoading ? (
-                        <option>Loading...</option>
-                    ) : (
-                        dailyDates.map((date, index) => (
-                            <option key={index} value={index}>
-                                {formatDate(date)}
-                            </option>
-                        ))
+                <div className="hourly-forecast__dropdown" ref={dropdownRef}>
+                    <button 
+                        className="hourly-forecast__dropdown-trigger"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        disabled={isLoading}
+                        aria-expanded={isDropdownOpen}
+                    >
+                        <span>{isLoading ? 'Loading...' : (dailyDates[selectedDateIndex] ? formatDate(dailyDates[selectedDateIndex]) : '')}</span>
+                        <img 
+                            src="/images/icon-dropdown.svg" 
+                            alt="Dropdown" 
+                            className="dropdown-icon"
+                            data-open={isDropdownOpen}
+                        />
+                    </button>
+
+                    {isDropdownOpen && !isLoading && (
+                        <div className="hourly-forecast__dropdown-menu">
+                            {dailyDates.map((date, index) => (
+                                <div 
+                                    key={index} 
+                                    className="hourly-forecast__dropdown-item"
+                                    onClick={() => {
+                                        setSelectedDateIndex(index)
+                                        setIsDropdownOpen(false)
+                                    }}
+                                >
+                                    <span>{formatDate(date)}</span>
+                                    {index === selectedDateIndex && (
+                                        <img src="/images/icon-checkmark.svg" alt="Selected" />
+                                    )}
+                                </div>
+                            ))}
+                        </div>
                     )}
-                </select>
+                </div>
             </header>
 
             {isLoading ? (
