@@ -1,29 +1,19 @@
-export interface GeocodingData {
-  city: string;
-  country: string;
-}
+import { maxSearchResults } from "@/constants";
+import type { GeocodingData, LocationSearchResult } from "@/types";
 
-export interface LocationSearchResult {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  country: string;
-  admin1?: string; // State/Region
-}
 
 export const searchLocations = async (query: string): Promise<LocationSearchResult[]> => {
   if (!query || query.length < 2) return [];
   
   try {
     const response = await fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5&language=en&format=json`
+      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=${maxSearchResults}&language=en&format=json`
     );
     const data = await response.json();
     
     if (!data.results) return [];
     
-    return data.results.map((item: any) => ({
+    return data.results.map((item: LocationSearchResult) => ({
       id: item.id,
       name: item.name,
       latitude: item.latitude,

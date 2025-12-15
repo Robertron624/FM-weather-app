@@ -33,3 +33,4 @@ export const unitSelectGroups = [
   },
 ] as const;
 
+export const maxSearchResults = 10;

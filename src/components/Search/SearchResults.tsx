@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { LocationSearchResult } from '@/api/geocodingApi';
 import Loading from '../Loading';
+import type { LocationSearchResult } from '@/types';
 import './SearchResults.scss';
 
 interface Props {

@@ -1,7 +1,8 @@
 import { FormEvent, useState, useRef, useEffect } from 'react';
-import { searchLocations, LocationSearchResult } from '@/api/geocodingApi';
+import { searchLocations } from '@/api/geocodingApi';
 import { SearchResults } from './SearchResults';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
+import type { LocationSearchResult } from '@/types';
 import './Search.scss';
 
 interface Props {

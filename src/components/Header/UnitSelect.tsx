@@ -43,13 +43,11 @@ export default function UnitSelect() {
    🔽 SUB-COMPONENT: UnitSelectMenu
 ------------------------------------------------------- */
 
-interface UnitSelectMenuProps {}
-
 function getSwitchToText(system: "metric" |"imperial"):string{
   return system === "metric" ? "imperial" : "metric"
 }
 
-function UnitSelectMenu({}: UnitSelectMenuProps) {
+function UnitSelectMenu() {
   const { units, setUnits, currentSystem } = useUnits();
 
   const handleSwitchSystem = () => {
