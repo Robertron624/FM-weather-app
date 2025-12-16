@@ -2,6 +2,7 @@ import { useWeather } from '../../hooks/useWeather'
 import { useUnits } from '../../hooks/useUnits'
 import './CurrentStats.scss'
 import { limitDecimalPlaces } from '@/utils/utilityFunctions'
+import { celsiusToFahrenheit, kmhToMph, mmToInch } from '@/utils/weatherUtils'
 
 const gridItems = [
     {
@@ -64,8 +65,8 @@ interface Props {
 }
 
 export const CurrentStats = ({ lat, lon }: Props) => {
-    const { currentSystem } = useUnits()
-    const { data, isLoading, error } = useWeather(lat, lon, currentSystem)
+    const { units } = useUnits()
+    const { data, isLoading, error } = useWeather(lat, lon)
 
     if (error) return <p>Error loading stats</p>
 
@@ -80,7 +81,10 @@ export const CurrentStats = ({ lat, lon }: Props) => {
                 if (!isLoading && current) {
                     switch (item.name) {
                         case "feelsLike":
-                            value = Math.round(current.apparent_temperature).toString()
+                            const temp = units.temperature === 'fahrenheit' 
+                                ? celsiusToFahrenheit(current.apparent_temperature) 
+                                : current.apparent_temperature;
+                            value = Math.round(temp).toString()
                             unit = "°"
                             break
                         case "humidity":
@@ -88,12 +92,18 @@ export const CurrentStats = ({ lat, lon }: Props) => {
                             unit = "%"
                             break
                         case "wind":
-                            value = Math.round(current.wind_speed_10m).toString()
-                            unit = currentSystem === 'metric' ? "km/h" : "mph"
+                            const wind = units.windSpeed === 'mph'
+                                ? kmhToMph(current.wind_speed_10m)
+                                : current.wind_speed_10m;
+                            value = Math.round(wind).toString()
+                            unit = units.windSpeed === 'mph' ? "mph" : "km/h"
                             break
                         case "precipitation":
-                            value = limitDecimalPlaces(current.precipitation, 2).toString()
-                            unit = currentSystem === 'metric' ? "mm" : "in"
+                            const precip = units.precipitation === 'inch'
+                                ? mmToInch(current.precipitation)
+                                : current.precipitation;
+                            value = limitDecimalPlaces(precip, 2).toString()
+                            unit = units.precipitation === 'inch' ? "in" : "mm"
                             break
                     }
                 }

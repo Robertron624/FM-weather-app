@@ -1,6 +1,6 @@
 import { useWeather } from '@/hooks/useWeather'
 import { useUnits } from '@/hooks/useUnits'
-import { getWeatherIcon } from '@/utils/weatherUtils'
+import { getWeatherIcon, celsiusToFahrenheit } from '@/utils/weatherUtils'
 import './DailyForecast.scss'
 import { DailyForecastSkeleton } from '../Skeletons/DailyForecastSkeleton'
 
@@ -10,8 +10,8 @@ interface Props {
 }
 
 export const DailyForecast = ({ lat, lon }: Props) => {
-    const { currentSystem } = useUnits()
-    const { data, isLoading, error } = useWeather(lat, lon, currentSystem)
+    const { units } = useUnits()
+    const { data, isLoading, error } = useWeather(lat, lon)
 
     if (isLoading) return <DailyForecastSkeleton />
     if (error) return <p>Error loading forecast</p>
@@ -26,20 +26,29 @@ export const DailyForecast = ({ lat, lon }: Props) => {
 
     return (
         <div className="daily-forecast">
-            {daily.time.map((date, index) => (
-                <div key={index} className="forecast-item">
-                    <p className="day">{getDayName(date)}</p>
-                    <img 
-                        src={getWeatherIcon(daily.weather_code[index])} 
-                        alt="Weather icon" 
-                        className="weather-icon mx-auto"
-                    />
-                    <div className="temps justify-between">
-                        <span className="max">{Math.round(daily.temperature_2m_max[index])}°</span>
-                        <span className="min">{Math.round(daily.temperature_2m_min[index])}°</span>
+            {daily.time.map((date, index) => {
+                const maxTemp = units.temperature === 'fahrenheit'
+                    ? celsiusToFahrenheit(daily.temperature_2m_max[index])
+                    : daily.temperature_2m_max[index];
+                const minTemp = units.temperature === 'fahrenheit'
+                    ? celsiusToFahrenheit(daily.temperature_2m_min[index])
+                    : daily.temperature_2m_min[index];
+
+                return (
+                    <div key={index} className="forecast-item">
+                        <p className="day">{getDayName(date)}</p>
+                        <img 
+                            src={getWeatherIcon(daily.weather_code[index])} 
+                            alt="Weather icon" 
+                            className="weather-icon mx-auto"
+                        />
+                        <div className="temps justify-between">
+                            <span className="max">{Math.round(maxTemp)}°</span>
+                            <span className="min">{Math.round(minTemp)}°</span>
+                        </div>
                     </div>
-                </div>
-            ))}
+                )
+            })}
         </div>
     )
 }

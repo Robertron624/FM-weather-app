@@ -63,3 +63,7 @@ export function formatDate(date: Date): string {
     month: 'short',
   }).format(date);
 }
+
+export const celsiusToFahrenheit = (celsius: number) => (celsius * 9/5) + 32;
+export const kmhToMph = (kmh: number) => kmh * 0.621371;
+export const mmToInch = (mm: number) => mm / 25.4;

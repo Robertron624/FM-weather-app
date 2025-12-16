@@ -2,7 +2,7 @@ import { useState, useMemo, useRef } from 'react'
 import { useWeather } from '@/hooks/useWeather'
 import { useUnits } from '@/hooks/useUnits'
 import { useOnClickOutside } from '@/hooks/useOnClickOutside'
-import { getWeatherIcon } from '@/utils/weatherUtils'
+import { getWeatherIcon, celsiusToFahrenheit } from '@/utils/weatherUtils'
 import './HourlyForecast.scss'
 import { HourlyForecastSkeleton } from '../Skeletons/HourlyForecastSkeleton'
 
@@ -12,8 +12,8 @@ interface Props {
 }
 
 export const HourlyForecast = ({ lat, lon }: Props) => {
-    const { currentSystem } = useUnits()
-    const { data, isLoading, error } = useWeather(lat, lon, currentSystem)
+    const { units } = useUnits()
+    const { data, isLoading, error } = useWeather(lat, lon)
     const [selectedDateIndex, setSelectedDateIndex] = useState(0)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
@@ -48,13 +48,19 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
             }
         })
 
-        return indices.map(index => ({
-            time: data.time[index],
-            temp: data.temperature_2m[index],
-            weatherCode: data.weather_code_hourly[index]
-        }))
+        return indices.map(index => {
+            const temp = units.temperature === 'fahrenheit'
+                ? celsiusToFahrenheit(data.temperature_2m[index])
+                : data.temperature_2m[index];
+            
+            return {
+                time: data.time[index],
+                temp: temp,
+                weatherCode: data.weather_code_hourly[index]
+            }
+        })
 
-    }, [data, dailyDates, selectedDateIndex])
+    }, [data, dailyDates, selectedDateIndex, units.temperature])
 
     if (error) return <p>Error loading forecast</p>
 

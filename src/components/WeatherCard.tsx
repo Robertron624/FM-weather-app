@@ -1,6 +1,6 @@
 import { useWeather } from '../hooks/useWeather'
 import { useUnits } from '../hooks/useUnits'
-import { getWeatherIcon, formatDate } from '../utils/weatherUtils'
+import { getWeatherIcon, formatDate, celsiusToFahrenheit } from '../utils/weatherUtils'
 import './WeatherCard.scss'
 import { WeatherCardSkeleton } from './Skeletons/WeatherCardSkeleton'
 
@@ -10,14 +10,17 @@ interface Props {
 }
 
 export default function WeatherCard({ lat, lon }: Props) {
-  const { currentSystem } = useUnits()
-  const { data, isLoading, error } = useWeather(lat, lon, currentSystem)
+  const { units } = useUnits()
+  const { data, isLoading, error } = useWeather(lat, lon)
 
   if (isLoading) return <WeatherCardSkeleton />
   if (error) return <p>Error al cargar el clima 😕</p>
 
   const { location, current } = data!
-  const temperature = Math.round(current.temperature_2m)
+  const temp = units.temperature === 'fahrenheit' 
+    ? celsiusToFahrenheit(current.temperature_2m) 
+    : current.temperature_2m;
+  const temperature = Math.round(temp)
   const weatherIcon = getWeatherIcon(current.weather_code)
   const date = formatDate(new Date())
 

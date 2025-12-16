@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import { getWeatherByCoords } from '../api/openMeteoApi'
 import { getCityName } from '../api/geocodingApi'
 
-export function useWeather(lat: number, lon: number, unitSystem: 'metric' | 'imperial' = 'metric') {
+export function useWeather(lat: number, lon: number, _unitSystem?: 'metric' | 'imperial') {
   return useQuery({
-    queryKey: ['weather', lat, lon, unitSystem],
+    queryKey: ['weather', lat, lon],
     queryFn: async () => {
       const [weather, location] = await Promise.all([
-        getWeatherByCoords(lat, lon, unitSystem),
+        getWeatherByCoords(lat, lon, 'metric'),
         getCityName(lat, lon)
       ])
       return { ...weather, location }
