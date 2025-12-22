@@ -80,31 +80,34 @@ export const CurrentStats = ({ lat, lon }: Props) => {
 
                 if (!isLoading && current) {
                     switch (item.name) {
-                        case "feelsLike":
+                        case "feelsLike": {
                             const temp = units.temperature === 'fahrenheit' 
                                 ? celsiusToFahrenheit(current.apparent_temperature) 
                                 : current.apparent_temperature;
                             value = Math.round(temp).toString()
                             unit = "°"
                             break
+                        }
                         case "humidity":
                             value = current.relative_humidity_2m.toString()
                             unit = "%"
                             break
-                        case "wind":
+                        case "wind": {
                             const wind = units.windSpeed === 'mph'
                                 ? kmhToMph(current.wind_speed_10m)
                                 : current.wind_speed_10m;
                             value = Math.round(wind).toString()
                             unit = units.windSpeed === 'mph' ? "mph" : "km/h"
                             break
-                        case "precipitation":
+                        }
+                        case "precipitation": {
                             const precip = units.precipitation === 'inch'
                                 ? mmToInch(current.precipitation)
                                 : current.precipitation;
                             value = limitDecimalPlaces(precip, 2).toString()
                             unit = units.precipitation === 'inch' ? "in" : "mm"
                             break
+                        }
                     }
                 }
 
