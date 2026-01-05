@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getWeatherByCoords } from '../api/openMeteoApi'
 import { getCityName } from '../api/geocodingApi'
 
-export function useWeather(lat: number, lon: number, _unitSystem?: 'metric' | 'imperial') {
+export function useWeather(lat: number, lon: number) {
   return useQuery({
     queryKey: ['weather', lat, lon],
     queryFn: async () => {

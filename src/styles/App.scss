@@ -1,4 +1,5 @@
 @use '@/styles/_variables.scss' as *;
+@use '@/styles/_utilities.scss' as *;
 
 #root {
   max-width: 1280px;
@@ -17,6 +18,10 @@ main {
 
   h1 {
     font-family: $font-heading;
+
+    @include md {
+      font-size: 3rem;
+    }
   }
 }
 

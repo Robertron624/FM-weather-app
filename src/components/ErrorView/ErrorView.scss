@@ -1,0 +1,31 @@
+@use '@/styles/_variables' as *;
+
+.container {
+    margin-top: 6rem;
+    .error-icon {
+        img {
+            width: 24px;
+        }
+    }
+    .error-texts {
+        margin-top: 1.25rem;
+
+        p {
+            margin-block: 1rem;
+            color: $neutral-300;
+        }
+        button {
+            display: flex;
+            gap: .5rem;
+            padding: .65rem .85rem;
+            border-radius: 6px;
+            margin-inline: auto;
+            background-color: $neutral-700;
+            font-weight: 600;
+
+            &:hover {
+                background-color: $neutral-600;
+            }
+        }
+    }
+}

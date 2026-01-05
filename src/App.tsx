@@ -9,6 +9,8 @@ import { CurrentStats } from './components/CurrentStats/CurrentStats';
 import { DailyForecast } from './components/DailyForecast/DailyForecast';
 
 import { HourlyForecast } from './components/HourlyForecast/HourlyForecast';
+import { useWeather } from './hooks/useWeather';
+import ErrorView from './components/ErrorView/ErrorView';
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
 
   const [lat, setLat] = useState<number | null>(null);
   const [lon, setLon] = useState<number | null>(null);
+
+  const { error: weatherError } = useWeather(lat ?? 0, lon ?? 0);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -46,6 +50,15 @@ function App() {
     setLon(lon);
     setSearchError(false);
   };
+
+  if (weatherError) {
+    return (
+      <>
+        <Header />
+        <ErrorView />
+      </>
+    );
+  }
 
   return (
     <>

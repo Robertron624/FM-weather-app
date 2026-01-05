@@ -26,29 +26,34 @@ export const DailyForecast = ({ lat, lon }: Props) => {
 
     return (
         <div className="daily-forecast">
-            {daily.time.map((date, index) => {
-                const maxTemp = units.temperature === 'fahrenheit'
-                    ? celsiusToFahrenheit(daily.temperature_2m_max[index])
-                    : daily.temperature_2m_max[index];
-                const minTemp = units.temperature === 'fahrenheit'
-                    ? celsiusToFahrenheit(daily.temperature_2m_min[index])
-                    : daily.temperature_2m_min[index];
+            <h2 className="section-title">
+                Daily forecast
+            </h2>
+            <div className="forecast-items">
+                {daily.time.map((date, index) => {
+                    const maxTemp = units.temperature === 'fahrenheit'
+                        ? celsiusToFahrenheit(daily.temperature_2m_max[index])
+                        : daily.temperature_2m_max[index];
+                    const minTemp = units.temperature === 'fahrenheit'
+                        ? celsiusToFahrenheit(daily.temperature_2m_min[index])
+                        : daily.temperature_2m_min[index];
 
-                return (
-                    <div key={index} className="forecast-item">
-                        <p className="day">{getDayName(date)}</p>
-                        <img 
-                            src={getWeatherIcon(daily.weather_code[index])} 
-                            alt="Weather icon" 
-                            className="weather-icon mx-auto"
-                        />
-                        <div className="temps justify-between">
-                            <span className="max">{Math.round(maxTemp)}°</span>
-                            <span className="min">{Math.round(minTemp)}°</span>
+                    return (
+                        <div key={index} className="forecast-item">
+                            <p className="day">{getDayName(date)}</p>
+                            <img 
+                                src={getWeatherIcon(daily.weather_code[index])} 
+                                alt="Weather icon" 
+                                className="weather-icon mx-auto"
+                            />
+                            <div className="temps justify-between">
+                                <span className="max">{Math.round(maxTemp)}°</span>
+                                <span className="min">{Math.round(minTemp)}°</span>
+                            </div>
                         </div>
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </div>
         </div>
     )
 }
