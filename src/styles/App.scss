@@ -16,6 +16,16 @@ body {
 main {
   margin-top: 2rem;
 
+  .weather-content {
+    @include md 
+    {
+      display: grid;
+      grid-template-columns: 3fr 1.5fr;
+      gap: 2rem;
+      align-items: start;
+    }
+  }
+
   h1 {
     font-family: $font-heading;
 
@@ -23,14 +33,15 @@ main {
       font-size: 3rem;
     }
   }
-}
 
-.search-error {
-  margin-top: 4rem;
-  
-  p {
-    color: $neutral-200;
-    font-size: 1.5rem;
-    font-weight: 500;
+  .search-error {
+    margin-top: 4rem;
+    
+    p {
+      color: $neutral-200;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
   }
 }
+

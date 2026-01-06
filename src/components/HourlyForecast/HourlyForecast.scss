@@ -1,4 +1,5 @@
 @use '../../styles/variables' as *;
+@use '../../styles/utilities' as *;
 
 .hourly-forecast {
     background-color: $neutral-800;
@@ -11,6 +12,10 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+
+    @include md {
+        margin-top: 0;
+    }
 
     header {
         display: flex;

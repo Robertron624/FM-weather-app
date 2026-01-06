@@ -68,19 +68,23 @@ function App() {
           {headingText}
         </h1>
         <SearchBar onLocationSelect={handleLocationSelect} onSearchError={setSearchError} />
-      </main>
       {searchError ? (
         <div className="search-error">
           <p>No search result found!</p>
         </div>
       ) : (
-        <>
-          {lat && lon && <WeatherCard lat={lat} lon={lon} />}
-          {lat && lon && <CurrentStats lat={lat} lon={lon} />}
-          {lat && lon && <DailyForecast lat={lat} lon={lon} />}
-          {lat && lon && <HourlyForecast lat={lat} lon={lon} />}
-        </>
+        <div className="weather-content">
+          <div className="desktop-left">
+            {lat && lon && <WeatherCard lat={lat} lon={lon} />}
+            {lat && lon && <CurrentStats lat={lat} lon={lon} />}
+            {lat && lon && <DailyForecast lat={lat} lon={lon} />}
+          </div>
+          <div className="desktop-right">
+            {lat && lon && <HourlyForecast lat={lat} lon={lon} />}
+          </div>
+        </div>
       )}
+      </main>
     </>
   )
 }
