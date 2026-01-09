@@ -9,7 +9,7 @@ interface Props {
   lon: number
 }
 
-export default function WeatherCard({ lat, lon }: Props) {
+export default function WeatherCard({ lat, lon }: Readonly<Props>) {
   const { units } = useUnits()
   const { data, isLoading, error } = useWeather(lat, lon)
 

@@ -74,7 +74,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
 
     return (
         <section className="hourly-forecast">
-            <header>
+            <div className="hourly-forecast__header">
                 <h2>Hourly forecast</h2>
                 <div className="hourly-forecast__dropdown" ref={dropdownRef}>
                     <button 
@@ -112,7 +112,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
                         </div>
                     )}
                 </div>
-            </header>
+            </div>
 
             {isLoading ? (
                 <HourlyForecastSkeleton />

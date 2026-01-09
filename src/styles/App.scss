@@ -22,7 +22,20 @@ main {
       display: grid;
       grid-template-columns: 3fr 1.5fr;
       gap: 2rem;
-      align-items: start;
+    }
+
+    .desktop-right {
+      @include md {
+        position: relative;
+        
+        > * {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
   }
 
