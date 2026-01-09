@@ -6,8 +6,8 @@ import type { LocationSearchResult } from '@/types';
 import './Search.scss';
 
 interface Props {
-  onLocationSelect: (lat: number, lon: number) => void;
-  onSearchError: (hasError: boolean) => void;
+  readonly onLocationSelect: (lat: number, lon: number) => void;
+  readonly onSearchError: (hasError: boolean) => void;
 }
 
 export function SearchBar({ onLocationSelect, onSearchError }: Props){

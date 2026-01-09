@@ -72,6 +72,13 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
         return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date)
     }
 
+    let dropdownLabel = ''
+    if (isLoading) {
+        dropdownLabel = 'Loading...'
+    } else if (dailyDates[selectedDateIndex]) {
+        dropdownLabel = formatDate(dailyDates[selectedDateIndex])
+    }
+
     return (
         <section className="hourly-forecast">
             <div className="hourly-forecast__header">
@@ -83,7 +90,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
                         disabled={isLoading}
                         aria-expanded={isDropdownOpen}
                     >
-                        <span>{isLoading ? 'Loading...' : (dailyDates[selectedDateIndex] ? formatDate(dailyDates[selectedDateIndex]) : '')}</span>
+                        <span>{dropdownLabel}</span>
                         <img 
                             src="/images/icon-dropdown.svg" 
                             alt="Dropdown" 
@@ -95,19 +102,20 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
                     {isDropdownOpen && !isLoading && (
                         <div className="hourly-forecast__dropdown-menu">
                             {dailyDates.map((date, index) => (
-                                <div 
-                                    key={index} 
+                                <button 
+                                    key={`${index}-${date.toISOString()}`} 
                                     className="hourly-forecast__dropdown-item"
                                     onClick={() => {
                                         setSelectedDateIndex(index)
                                         setIsDropdownOpen(false)
                                     }}
+                                    data-selected={index === selectedDateIndex}
                                 >
                                     <span>{formatDate(date)}</span>
                                     {index === selectedDateIndex && (
                                         <img src="/images/icon-checkmark.svg" alt="Selected" />
                                     )}
-                                </div>
+                                </button>
                             ))}
                         </div>
                     )}
@@ -119,7 +127,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
             ) : (
                 <div className="hourly-list">
                     {hourlyData.map((item, index) => (
-                        <div key={index} className="hourly-item">
+                        <div key={`${index}-${item.time.toISOString()}`} className="hourly-item">
                             <div className="left">
                                 <img 
                                     src={getWeatherIcon(item.weatherCode)} 

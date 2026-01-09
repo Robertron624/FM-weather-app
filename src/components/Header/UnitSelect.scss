@@ -23,6 +23,11 @@
       background: rgba(255, 255, 255, 0.09);
     }
 
+    &:focus-visible {
+      outline: 2px solid $neutral-0;
+      outline-offset: 2px;
+    }
+
     // The last img is the dropdown icon, it needs to rotate when open with an animation
     img:last-of-type{
         transition: transform 0.3s ease;
@@ -48,6 +53,17 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   padding: 0.6rem;
   z-index: 101;
+
+  &__switch-btn {
+    width: 100%;
+    border-radius: 6px;
+    padding: 5px 3px;
+
+    &:focus-visible {
+      outline: 2px solid $neutral-0;
+      outline-offset: 2px;
+    }
+  }
 }
 
 .unit-group {
