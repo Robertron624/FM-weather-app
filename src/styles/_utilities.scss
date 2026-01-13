@@ -116,19 +116,7 @@
     object-fit: fill;
 }
 
-.block {
-    display: block;
-}
-
-.inline {
-    display: inline;
-}
-
 // Paddings
-
-.padding-0 {
-    padding: 0;
-}
 
 .padding-1 {
     padding: 1rem;
@@ -159,10 +147,6 @@
 }
 
 // Margins
-
-.margin-0 {
-    margin: 0;
-}
 
 .margin-1 {
     margin: 1rem;
@@ -224,9 +208,6 @@
     margin-top: 7rem;
 }
 
-.mx-auto {
-    margin-inline: auto;
-}
 // Rounding
 
 .rounded-0 {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DEFAULT_LOCATION } from './utils/constants';
+import { DEFAULT_LOCATION } from './constants';
 import Header from './components/Header/Header';
 import WeatherCard from './components/WeatherCard'
 

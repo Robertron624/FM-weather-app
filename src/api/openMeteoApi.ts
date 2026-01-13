@@ -1,25 +1,5 @@
 import { fetchWeatherApi } from 'openmeteo'
-
-export interface WeatherData {
-  time: Date[]
-  temperature_2m: Float32Array
-  weather_code_hourly: Float32Array
-  current: {
-    temperature_2m: number
-    weather_code: number
-    is_day: number
-    apparent_temperature: number
-    relative_humidity_2m: number
-    wind_speed_10m: number
-    precipitation: number
-  }
-  daily: {
-    time: Date[]
-    weather_code: Float32Array
-    temperature_2m_max: Float32Array
-    temperature_2m_min: Float32Array
-  }
-}
+import type { WeatherData } from '@/types'
 
 export const getWeatherByCoords = async (lat: number, lon: number, unitSystem: 'metric' | 'imperial' = 'metric'): Promise<WeatherData> => {
   const params = {

@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const SearchResults = ({ results, isLoading, onSelect, selectedIndex }: Props) => {
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (selectedIndex >= 0 && listRef.current) {
@@ -48,9 +48,9 @@ export const SearchResults = ({ results, isLoading, onSelect, selectedIndex }: P
   }
 
   return (
-    <ul className="search-results" ref={listRef}>
+    <div className="search-results" ref={listRef}>
       {results.map((result, index) => (
-        <li 
+        <button 
           key={result.id} 
           onClick={() => onSelect(result)}
           className={index === selectedIndex ? 'selected' : ''}
@@ -59,8 +59,8 @@ export const SearchResults = ({ results, isLoading, onSelect, selectedIndex }: P
           <span className="location-details">
             {result.admin1 ? `${result.admin1}, ` : ''}{result.country}
           </span>
-        </li>
+        </button>
       ))}
-    </ul>
+    </div>
   );
 };

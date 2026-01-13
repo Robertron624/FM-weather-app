@@ -3,6 +3,7 @@ import { useUnits } from '../../hooks/useUnits'
 import './CurrentStats.scss'
 import { limitDecimalPlaces } from '@/utils/utilityFunctions'
 import { celsiusToFahrenheit, kmhToMph, mmToInch } from '@/utils/weatherUtils'
+import type { Units, WeatherDataCurrent } from '@/types'
 
 const gridItems = [
     {
@@ -66,6 +67,43 @@ interface Props {
     lon: number
 }
 
+const getStatValueAndUnit = (item: typeof gridItems[number], current: WeatherDataCurrent, units: Units) => {
+    let value = ""
+    let unit = ""
+
+    switch (item.name) {
+        case "feelsLike": {
+            const temp = units.temperature === 'fahrenheit'
+                ? celsiusToFahrenheit(current.apparent_temperature)
+                : current.apparent_temperature;
+            value = Math.round(temp).toString()
+            unit = "°"
+            break
+        }
+        case "humidity":
+            value = current.relative_humidity_2m.toString()
+            unit = "%"
+            break
+        case "wind": {
+            const wind = units.windSpeed === 'mph'
+                ? kmhToMph(current.wind_speed_10m)
+                : current.wind_speed_10m;
+            value = Math.round(wind).toString()
+            unit = units.windSpeed === 'mph' ? "mph" : "km/h"
+            break
+        }
+        case "precipitation": {
+            const precip = units.precipitation === 'inch'
+                ? mmToInch(current.precipitation)
+                : current.precipitation;
+            value = limitDecimalPlaces(precip, 2).toString()
+            unit = units.precipitation === 'inch' ? "in" : "mm"
+            break
+        }
+    }
+    return { value, unit }
+}
+
 export const CurrentStats = ({ lat, lon }: Props) => {
     const { units } = useUnits()
     const { data, isLoading, error } = useWeather(lat, lon)
@@ -77,41 +115,9 @@ export const CurrentStats = ({ lat, lon }: Props) => {
     return (
         <div className="current-stats-grid">
             {gridItems.map((item) => {
-                let value = ""
-                let unit = ""
-
-                if (!isLoading && current) {
-                    switch (item.name) {
-                        case "feelsLike": {
-                            const temp = units.temperature === 'fahrenheit' 
-                                ? celsiusToFahrenheit(current.apparent_temperature) 
-                                : current.apparent_temperature;
-                            value = Math.round(temp).toString()
-                            unit = "°"
-                            break
-                        }
-                        case "humidity":
-                            value = current.relative_humidity_2m.toString()
-                            unit = "%"
-                            break
-                        case "wind": {
-                            const wind = units.windSpeed === 'mph'
-                                ? kmhToMph(current.wind_speed_10m)
-                                : current.wind_speed_10m;
-                            value = Math.round(wind).toString()
-                            unit = units.windSpeed === 'mph' ? "mph" : "km/h"
-                            break
-                        }
-                        case "precipitation": {
-                            const precip = units.precipitation === 'inch'
-                                ? mmToInch(current.precipitation)
-                                : current.precipitation;
-                            value = limitDecimalPlaces(precip, 2).toString()
-                            unit = units.precipitation === 'inch' ? "in" : "mm"
-                            break
-                        }
-                    }
-                }
+                const { value, unit } = (!isLoading && current)
+                    ? getStatValueAndUnit(item, current, units)
+                    : { value: "", unit: "" }
 
                 return (
                     <GridItem
