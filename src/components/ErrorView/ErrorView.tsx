@@ -11,7 +11,7 @@ export default function ErrorView() {
         <p>
             We couldn't connect to the server (API error). Please try again in a few moments.
         </p>
-        <button type="button" onClick={() => window.location.reload()}>
+        <button type="button" onClick={() => globalThis.location.reload()}>
             <img  src="/images/icon-retry.svg" alt="retry icon" /> 
           <span>
             Retry

@@ -39,7 +39,10 @@ export const DailyForecast = ({ lat, lon }: Props) => {
                         : daily.temperature_2m_min[index];
 
                     return (
-                        <div key={index} className="forecast-item">
+                        <div 
+                            key={date.toISOString()} 
+                            className="forecast-item"
+                        >
                             <p className="day">{getDayName(date)}</p>
                             <img 
                                 src={getWeatherIcon(daily.weather_code[index])} 

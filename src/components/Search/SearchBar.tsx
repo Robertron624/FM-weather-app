@@ -30,7 +30,7 @@ export function SearchBar({ onLocationSelect, onSearchError }: Props){
     function onSubmit(e: FormEvent<HTMLFormElement>){
         e.preventDefault();
         if (results.length > 0) {
-            const indexToSelect = selectedIndex >= 0 ? selectedIndex : 0;
+            const indexToSelect = Math.max(0, selectedIndex);
             handleSelect(results[indexToSelect]);
         }
         (document.activeElement as HTMLElement)?.blur();

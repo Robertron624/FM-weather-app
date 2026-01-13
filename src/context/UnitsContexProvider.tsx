@@ -1,6 +1,6 @@
 import { defaultUnits } from "@/constants"
 import { Units } from "@/types"
-import { ReactNode, useState, useEffect } from "react"
+import { ReactNode, useState, useEffect, useMemo } from "react"
 import { UnitsContext } from "./UnitsContext"
 
 export const  UnitsProvider = ({ children }: { children: ReactNode }) => {
@@ -14,8 +14,14 @@ export const  UnitsProvider = ({ children }: { children: ReactNode }) => {
       setCurrentSystem('imperial')
     }
   }, [units.temperature])
+
+  const contextValue = useMemo(
+    () => ({ units, setUnits, currentSystem, setCurrentSystem }),
+    [units, currentSystem]
+  )
+
   return (
-    <UnitsContext.Provider value={{ units, setUnits, currentSystem, setCurrentSystem }}>
+    <UnitsContext.Provider value={contextValue}>
       {children}
     </UnitsContext.Provider>
   )

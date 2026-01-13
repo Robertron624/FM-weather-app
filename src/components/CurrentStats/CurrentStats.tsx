@@ -40,6 +40,13 @@ function GridItem({
     unit,
     isLoading
 }: GridItemProps & { isLoading?: boolean }) {
+    const content = (title === "Feels Like" || title === "Humidity") ?
+        <p>{value}{unit}</p> :
+        <>
+            <p>{value}</p>
+            <p className='unit'>{unit}</p>
+        </>
+
     return (
         <div className="grid-item">
             <p className='name'>{title}</p>
@@ -47,12 +54,7 @@ function GridItem({
                 {isLoading ? (
                     <p>__</p>
                 ) : (
-                    (title === "Feels Like" || title === "Humidity") ?
-                        <p>{value}{unit}</p> :
-                        <>
-                            <p>{value}</p>
-                            <p className='unit'>{unit}</p>
-                        </>
+                    content
                 )}
             </div>
         </div>

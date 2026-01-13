@@ -4,7 +4,7 @@ import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import { unitSelectGroups } from "@/constants";
 import "./UnitSelect.scss";
 
-function UnitSelectDropdownIcon({ isOpen }: { isOpen: boolean }) {
+function UnitSelectDropdownIcon({ isOpen }: { readonly isOpen: boolean }) {
   // It'll be the same icon, but rotated based on isOpen, handled via CSS
   return (
     <img
@@ -79,7 +79,7 @@ function UnitSelectMenu() {
         <div key={group.key} className="unit-group">
           <h4>{group.title}</h4>
           {group.options.map((option) => (
-            <div
+            <button
               key={option.value}
               className="unit-option"
               onClick={() => handleChange(group.key, option.value)}
@@ -88,7 +88,7 @@ function UnitSelectMenu() {
               {units[group.key as keyof typeof units] === option.value && (
                 <img src="/images/icon-checkmark.svg" alt="Check icon" />
               )}
-            </div>
+            </button>
           ))}
         </div>
       ))}
