@@ -95,11 +95,24 @@
   overflow-x: auto;
   padding-bottom: 1rem;
 
+  @include md {
+    flex-direction: column;
+    overflow-x: unset;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+
   .skeleton-item {
     min-width: 80px;
     height: 120px;
     background-color: $neutral-700; // Slightly lighter to contrast with container
     border-radius: 1rem;
     @extend .skeleton-pulse;
+
+    @include md {
+      min-width: 100%;
+      height: 70px;
+      flex-shrink: 0;
+    }
   }
 }
