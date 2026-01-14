@@ -119,8 +119,6 @@
         max-height: 300px;
         overflow-y: auto;
 
-        scrollbar-gutter: stable;
-
         @include md {
             max-height: none;
             flex: 1;

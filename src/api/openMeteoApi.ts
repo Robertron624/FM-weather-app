@@ -31,8 +31,15 @@ export const getWeatherByCoords = async (lat: number, lon: number, unitSystem: '
   
   if(!tempVar || !weatherCodeVar) throw new Error('No se encontró la variable de temperatura o código de clima')
 
+  const dailyWeatherCode = daily.variables(0)?.valuesArray()
+  const dailyMax = daily.variables(1)?.valuesArray()
+  const dailyMin = daily.variables(2)?.valuesArray()
+
+  if (!dailyWeatherCode || !dailyMax || !dailyMin) throw new Error('No se encontraron los datos diarios completos.')
+
   const weatherData: WeatherData = {
-    time: [...Array((Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval())].map(
+    time: Array.from(
+      { length: (Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval() },
       (_, i) => new Date((Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) * 1000)
     ),
     temperature_2m: tempVar,
@@ -47,12 +54,13 @@ export const getWeatherByCoords = async (lat: number, lon: number, unitSystem: '
       precipitation: current.variables(6)!.value(),
     },
     daily: {
-      time: [...Array((Number(daily.timeEnd()) - Number(daily.time())) / daily.interval())].map(
+      time: Array.from(
+        { length: (Number(daily.timeEnd()) - Number(daily.time())) / daily.interval() },
         (_, i) => new Date((Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) * 1000)
       ),
-      weather_code: daily.variables(0)!.valuesArray()!,
-      temperature_2m_max: daily.variables(1)!.valuesArray()!,
-      temperature_2m_min: daily.variables(2)!.valuesArray()!,
+      weather_code: dailyWeatherCode,
+      temperature_2m_max: dailyMax,
+      temperature_2m_min: dailyMin,
     }
   }
 
