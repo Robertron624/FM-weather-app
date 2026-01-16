@@ -130,6 +130,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
                 <section 
                     className="hourly-list"
                     aria-label="Hourly forecast scrollable list"
+                    tabIndex={0}
                 >
                     {hourlyData.map((item, index) => (
                         <div key={`${index}-${item.time.toISOString()}`} className="hourly-item">

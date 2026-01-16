@@ -31,6 +31,11 @@
     // The last img is the dropdown icon, it needs to rotate when open with an animation
     img:last-of-type{
         transition: transform 0.3s ease;
+
+        @media (prefers-reduced-motion: reduce) {
+          transition: none;
+        }
+
         &[data-open="true"] {
           transform: rotate(180deg);
         }
@@ -92,6 +97,10 @@
   cursor: pointer;
   border-radius: 0.3rem;
   transition: background 0.2s;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 
   &:hover {
     background: $neutral-700;

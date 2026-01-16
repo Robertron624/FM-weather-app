@@ -30,9 +30,13 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    transition: background-color 0.2s;
     width: 100%;
     text-align: left;
+    transition: background-color 0.2s;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
 
     &:hover, &.selected {
       background-color: $neutral-700;
