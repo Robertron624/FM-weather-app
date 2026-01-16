@@ -127,7 +127,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
             {isLoading ? (
                 <HourlyForecastSkeleton />
             ) : (
-                <section 
+                <div 
                     className="hourly-list"
                     aria-label="Hourly forecast scrollable list"
                     tabIndex={0}
@@ -145,7 +145,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
                             <span className="temp">{Math.round(item.temp)}°</span>
                         </div>
                     ))}
-                </section>
+                </div>
             )}
         </section>
     )
