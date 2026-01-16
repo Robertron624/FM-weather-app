@@ -89,6 +89,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                         disabled={isLoading}
                         aria-expanded={isDropdownOpen}
+                        type="button"
                     >
                         <span>{dropdownLabel}</span>
                         <img 
@@ -110,6 +111,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
                                         setIsDropdownOpen(false)
                                     }}
                                     data-selected={index === selectedDateIndex}
+                                    type="button"
                                 >
                                     <span>{formatDate(date)}</span>
                                     {index === selectedDateIndex && (
@@ -125,7 +127,10 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
             {isLoading ? (
                 <HourlyForecastSkeleton />
             ) : (
-                <div className="hourly-list">
+                <section 
+                    className="hourly-list"
+                    aria-label="Hourly forecast scrollable list"
+                >
                     {hourlyData.map((item, index) => (
                         <div key={`${index}-${item.time.toISOString()}`} className="hourly-item">
                             <div className="left">
@@ -139,7 +144,7 @@ export const HourlyForecast = ({ lat, lon }: Props) => {
                             <span className="temp">{Math.round(item.temp)}°</span>
                         </div>
                     ))}
-                </div>
+                </section>
             )}
         </section>
     )

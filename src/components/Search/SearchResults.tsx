@@ -54,6 +54,7 @@ export const SearchResults = ({ results, isLoading, onSelect, selectedIndex }: P
           key={result.id} 
           onClick={() => onSelect(result)}
           className={index === selectedIndex ? 'selected' : ''}
+          type="button"
         >
           <span className="city-name">{result.name}</span>
           <span className="location-details">

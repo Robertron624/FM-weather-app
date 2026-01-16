@@ -25,7 +25,7 @@
   }
 }
 
-.skeleton-pulse {
+%skeleton-pulse {
   animation: pulse 1.5s infinite ease-in-out;
   background-color: $neutral-600;
   border-radius: 4px;
@@ -83,7 +83,7 @@
     background-color: $neutral-800;
     border-radius: 0.5rem;
     border: 1px solid $neutral-600;
-    @extend .skeleton-pulse;
+    @extend %skeleton-pulse;
   }
 }
 
@@ -107,7 +107,7 @@
     height: 120px;
     background-color: $neutral-700; // Slightly lighter to contrast with container
     border-radius: 1rem;
-    @extend .skeleton-pulse;
+    @extend %skeleton-pulse;
 
     @include md {
       min-width: 100%;

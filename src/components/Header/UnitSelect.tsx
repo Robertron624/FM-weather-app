@@ -28,6 +28,7 @@ export default function UnitSelect() {
         className="unit-select__button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
+        type="button"
       >
         <img src="/images/icon-units.svg" alt="Units icon" />
         <span className="unit-select__label">Units</span>
@@ -72,7 +73,7 @@ function UnitSelectMenu() {
 
   return (
     <div className="unit-select-menu">
-      <button className="unit-select-menu__switch-btn" onClick={handleSwitchSystem}>
+      <button className="unit-select-menu__switch-btn" onClick={handleSwitchSystem} type="button">
         Switch to {getSwitchToText(currentSystem)}
       </button>
       {unitSelectGroups.map((group) => (
@@ -82,6 +83,7 @@ function UnitSelectMenu() {
             <button
               key={option.value}
               className="unit-option"
+              type="button"
               onClick={() => handleChange(group.key, option.value)}
             >
               <span>{option.label}</span>
